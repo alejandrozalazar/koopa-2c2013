@@ -1,6 +1,9 @@
 #include "files.h"
 
-char* files_getFullPath(char* path) { return realpath(path, (void*) NULL); }
+char* files_getFullPath(char* path)
+	{ return realpath(path, (void*) NULL); }
+void files_fillPath(char* path, char* directory, char* fileName)
+	{ sprintf(path, "%s/%s", directory, fileName); }
 
 bool files_fileExists(char* path) {
 	FILE* file = fopen(path, "r");
@@ -38,4 +41,20 @@ t_list* files_getEntriesOfDirectory(char* path) {
 	}
 
 	return list;
+}
+
+char* files_readFile(char* path) {
+	FILE* file = fopen(path, "r");
+	if (file == NULL) return NULL;
+
+	fseek(file, 0L, SEEK_END);
+	int size = ftell(file);
+	fseek(file, 0L, SEEK_SET);
+
+	char* text = malloc(size + 1);
+	fread(text, size, sizeof(char), file);
+	fclose(file);
+	text[size] = '\0';
+
+	return text;
 }

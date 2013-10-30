@@ -1,8 +1,6 @@
 #include "magic.h"
 
 void magic_executeScript(char* tmpDirectory, char* mountPoint, char* scriptPath) {
-	printf("Ejecutando operaciones...\n");
-
 	char command[MAX_PATH];
 	sprintf(command, "sh %s", scriptPath);
 

@@ -1,5 +1,5 @@
-#ifndef MAIN_HEADERS_H_
-#define MAIN_HEADERS_H_
+#ifndef HEADERS_H_
+#define HEADERS_H_
 
 	#include <stdlib.h>
 	#include <stdio.h>
@@ -13,11 +13,5 @@
 	#define downcast(TYPE) \
 		TYPE* this = (TYPE*) _this;
 	#define string_equals(STR1, STR2) !strcmp(STR1, STR2)
-
-	#include "files/files.h"
-	#include "validate/validate.h"
-	#include "magic/magic.h"
-
-	extern bool win;
 
 #endif
