@@ -10,6 +10,7 @@
 	#include "objects/box.h"
 	#include "objects/goomba.h"
 	#include "objects/bowser.h"
+	#include "objects/textbox.h"
 
 	void koopa_onInit(t_anim* anim);
 	void koopa_onUpdate(t_anim* anim);

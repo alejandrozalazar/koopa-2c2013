@@ -44,12 +44,13 @@ void screen_renderItem(t_screen* screen, i_drawable* item) {
 
 	int getColorCode(char code) {
 		char str[2]; str[0] = code; str[1] = '\0';
-		return atoi(&str);
+		return atoi(str);
 	}
 
 	for(int i=0; lines[i] != NULL; i++) {
 		for(int j=0; lines[i][j] != '\0'; j++) {
-			if (lines[i][j] == ' ') continue;
+			if (lines[i][j] == '~') continue;
+			//(transparency)
 
 			int color = _screen_setColor(
 				screen,

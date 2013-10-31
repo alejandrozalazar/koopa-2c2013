@@ -7,5 +7,6 @@
 	#include "magic/magic.h"
 
 	bool win;
+	char* dumpGrasa;
 
 #endif

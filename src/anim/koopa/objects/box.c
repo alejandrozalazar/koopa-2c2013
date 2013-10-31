@@ -10,11 +10,10 @@ t_box* box_create(int x, int y) {
 	this->position.y = y;
 	this->position.z = 0;
 
-	char* format =      " ___\n|_?_|";
+	char* format =      "~___\n|_?_|";
 	this->colors_text = "7777\n70007";
 	this->colors_back = "0000\n03330";
-	this->text = malloc(strlen(format) + 1);
-	strcpy(this->text, format);
+	this->text = string_duplicate(format);
 
 	this->on = false;
 	this->lastUpdateTime = drawable_getTime();
@@ -23,11 +22,8 @@ t_box* box_create(int x, int y) {
 }
 
 void box_clean(t_box* this) {
-	for(int i=0; i < strlen(this->text); i++)
-		if (this->text[i] == '?') {
-			this->text[i] = '_';
-			this->update = NULL;
-		}
+	string_replaceChar(this->text, '?', '_');
+	this->update = NULL;
 }
 
 static void _box_update(i_drawable* _this) {

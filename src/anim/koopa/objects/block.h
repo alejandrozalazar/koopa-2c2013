@@ -12,6 +12,7 @@
 //	||_|
 
 	t_block* block_create();
-	t_block* block_makeLava(t_block* this);
+	void block_makeLava(t_block* this);
+	void block_breakBridge(t_block* this);
 
 #endif

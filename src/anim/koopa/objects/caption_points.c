@@ -10,11 +10,10 @@ t_caption_points* caption_points_create(int x, int y) {
 	this->position.y = y;
 	this->position.z = 999;
 
-	char* format =      "MARIO\n022600   o x 16";
+	char* format =      "MARIO\n022600~~~o~x~16";
 	this->colors_text = "77777\n777777777377777";
 	this->colors_back = "00000\n000000000000000";
-	this->text = malloc(strlen(format) + 1);
-	strcpy(this->text, format);
+	this->text = string_duplicate(format);
 
 	this->points = 22600;
 	this->coins = 16;

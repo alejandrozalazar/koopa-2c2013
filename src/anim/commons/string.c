@@ -10,6 +10,22 @@ char* string_duplicate(char* original) {
 	return strdup(original);
 }
 
+char* string_repeat(char character, int count) {
+	char *text = calloc(count + 1, 1);
+	for (int i = 0; i < count; ++i) {
+		text[i] = character;
+	}
+	return text;
+}
+
+char* string_replaceChar(char* string, char find, char replace) {
+	for(int i=0; i < strlen(string); i++)
+		if (string[i] == find)
+			string[i] = replace;
+
+	return string;
+}
+
 void string_append(char** original, char* string_to_add) {
 	*original = realloc(*original, strlen(*original) + strlen(string_to_add) + 1);
 	strcat(*original, string_to_add);

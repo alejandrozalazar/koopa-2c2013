@@ -10,7 +10,7 @@ t_dummy* dummy_create() {
 	this->position.y = 5;
 	this->position.z = 0;
 
-	this->text =        " ___\n    \n|  |\n|__|";
+	this->text =        "~___\n~~~~\n|~~|\n|__|";
 	this->colors_text = "0123\n4567\n0123\n4567";
 	this->colors_back = "0123\n4567\n0123\n4567";
 

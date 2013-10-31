@@ -60,21 +60,21 @@ static void _pipe_update(i_drawable* _this) {
 }
 
 static void _pipe_switchToStateA(t_pipe* this) {
-	this->text =        "  __ \n |__|\n |  |\n |__|";
+	this->text =        "~~__~\n~|__|\n~|~~|\n~|__|";
 	this->colors_text = "22222\n22222\n22222\n22222";
 	this->colors_back = "00000\n00000\n00000\n00000";
 	this->state = 'A';
 }
 
 static void _pipe_switchToStateB(t_pipe* this) {
-	this->text =        "  /\\ \n  || \n |__| \n |  | \n |__|";
+	this->text =        "~~/\\~\n~~||~\n~|__|~\n~|~~|~\n~|__|";
 	this->colors_text = "11111\n11111\n222222\n222222\n22222";
 	this->colors_back = "00000\n00000\n000000\n000000\n00000";
 	this->state = 'B';
 }
 
 static void _pipe_switchToStateC(t_pipe* this) {
-	this->text =        " \\  /\n  || \n |__| \n |  | \n |__|";
+	this->text =        "~\\~~/\n~~||~\n~|__|~\n~|~~|~\n~|__|";
 	this->colors_text = "11111\n11111\n222222\n222222\n22222";
 	this->colors_back = "00000\n00000\n000000\n000000\n00000";
 	this->state = 'C';

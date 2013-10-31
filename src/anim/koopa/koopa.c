@@ -11,9 +11,11 @@ static t_box* _box;
 static t_goomba* _goomba;
 static t_pipe* _pipe;
 static t_bowser* _bowser;
-static int floorLevel;
+static int floorLevel, lavaInit;
 static long lastTime;
-char* state;
+static char* state;
+
+extern bool win;
 
 void koopa_onInit(t_anim* anim) {
 	lastTime = 0;
@@ -176,10 +178,33 @@ void koopa_onUpdate(t_anim* anim) {
 			_mario->position.y--;
 
 		if (_mario->position.y == _pipe->position.y - drawable_height(_pipe) + 2) {
-			_shoot->text = "-";
-			_shoot->position.x = _mario->position.x + 1;
-			_shoot->position.y = _mario->position.y;
-			state = "shootingPlant";
+			if (win) {
+				_shoot->text = "-";
+				_shoot->position.x = _mario->position.x + 1;
+				_shoot->position.y = _mario->position.y;
+				state = "shootingPlant";
+			} else {
+				state = "lose";
+			}
+		}
+	} else if (string_equals(state, "lose")) {
+		if (_mario->position.x != _pipe->position.x + 2) {
+			_mario->position.x++;
+			_mario->position.y--;
+		} else {
+			_mario->position.y++;
+			if (_mario->position.y >= _pipe->position.y - drawable_height(_pipe) + 1) {
+				anim_removeFromRenderList(anim, _mario);
+				char* message = "Lo sentimos, pero la princesa esta en otro disco";
+				t_textbox* textbox = textbox_create(
+					anim->screen->width / 2 - strlen(message) / 2,
+					anim->screen->height / 2,
+					message
+				);
+				anim_addToRenderList(anim, textbox);
+				state = "end";
+				_updateLastTime();
+			}
 		}
 	} else if (string_equals(state, "shootingPlant")) {
 		if (_pipe->state != 'Z') {
@@ -206,8 +231,9 @@ void koopa_onUpdate(t_anim* anim) {
 			_mario->position.x = 1;
 			anim_addToRenderList(anim, _mario);
 
+			lavaInit = anim->screen->width / 2 - 8;
 			void _makeLava(t_block* object) {
-				if (object->position.y >= floorLevel && object->position.x >= anim->screen->width / 2 - 8) {
+				if (object->position.y > floorLevel && object->position.x >= lavaInit) {
 					block_makeLava((object));
 				}
 			}
@@ -226,12 +252,52 @@ void koopa_onUpdate(t_anim* anim) {
 	} else if (string_equals(state, "koopattack")) {
 		_bowser->position.x--;
 
-		if (_bowser->position.x <= _mario->position.x + 15) {
+		if (_bowser->position.x <= anim->screen->width / 2 + 2) {
 			free(_box);
 			_box = box_create(_mario->position.x + 3, _mario->position.y - 4);
 			anim_addToRenderList(anim, _box);
-			state = "perapera";
+			state = "activateRain";
+			_updateLastTime();
 		}
+	} else if (string_equals(state, "activateRain")) {
+		if (elapsedTime > 500) {
+			if (_mario->position.x >= _box->position.x + 2) {
+				if (_mario->position.y <= _box->position.y + 1) {
+					box_clean(_box);
+					void _breakBridge(t_block* object) {
+						if (object->position.y > floorLevel && object->position.x >= lavaInit) {
+							block_breakBridge(object);
+						}
+					}
+					list_iterate(anim->objects, (void*) _breakBridge);
+					state = "fall";
+					_updateLastTime();
+				} else _mario->position.y--;
+			} else _mario->position.x++;
+		}
+	} else if (string_equals(state, "fall")) {
+		if (_mario->position.y != floorLevel)
+			_mario->position.y++;
+
+		if (elapsedTime > 300) {
+			_updateLastTime();
+			if (!strlen(_bowser->text)) {
+				char* message = "Lo sentimos, pero no sabemos donde esta la princesa";
+				t_textbox* textbox = textbox_create(
+					anim->screen->width / 2 - strlen(message) / 2,
+					anim->screen->height / 2,
+					message
+				);
+				anim_addToRenderList(anim, textbox);
+				state = "end";
+				_updateLastTime();
+			} else {
+				bowser_killLastLine(_bowser);
+			}
+		}
+	} else if (string_equals(state, "end")) {
+		if (elapsedTime > 15000)
+			anim->stop = true;
 	}
 
 	_koopa_doFocusHack(anim);

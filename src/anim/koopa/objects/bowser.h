@@ -48,5 +48,6 @@
 */
 
 	t_bowser* bowser_create(int x, int y, int maxHeight);
+	void bowser_killLastLine(t_bowser* this);
 
 #endif

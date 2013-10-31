@@ -27,7 +27,7 @@ static char *workingDirectory, *tmpDirectory;
 static char *mountPoint, *script;
 static char linuxLogName[MAX_PATH], grasaLogName[MAX_PATH];
 
-extern bool win;
+extern bool win; extern char* dumpGrasa;
 
 int main(int argc, char **argv) {
 	clear();
@@ -92,8 +92,8 @@ void main_generateDumps() {
 }
 
 bool main_compareResults() {
+	dumpGrasa = files_readFile(grasaLogName);
 	char* dumpLinux = files_readFile(linuxLogName);
-	char* dumpGrasa = files_readFile(grasaLogName);
 
 	bool win = string_equals(dumpLinux, dumpGrasa);
 

@@ -10,11 +10,10 @@ t_caption_status* caption_status_create(int y) {
 	this->position.y = y;
 	this->position.z = 999;
 
-	char* format =      "WORLD   TIME\n 8-8     373";
+	char* format =      "WORLD~~~TIME\n 8-8~~~~~373";
 	this->colors_text = "777777777777\n777777777777";
 	this->colors_back = "000000000000\n000000000000";
-	this->text = malloc(strlen(format) + 1);
-	strcpy(this->text, format);
+	this->text = string_duplicate(format);
 
 	this->time = 373;
 	this->lastUpdateTime = drawable_getTime();

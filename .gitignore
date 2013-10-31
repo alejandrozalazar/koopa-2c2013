@@ -3,3 +3,4 @@
 *.lib
 *.out
 Debug
+/Release
