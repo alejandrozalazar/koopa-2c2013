@@ -5,7 +5,7 @@ static void _screen_setDefaultColor();
 static int _screen_setColor(t_screen* screen, int textColor, int backColor);
 
 t_screen* screen_create() {
-	int width, height;
+	int width = 0, height = 0;
 	_screen_getTermSize(&width, &height);
 
 	if (width < 80 || height < 24)
