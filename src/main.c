@@ -1,16 +1,3 @@
-#include <curses.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-
-#include "anim/anim.h"
-#include "anim/commons/string.h"
-#include "anim/koopa/koopa.h"
-#include "files/files.h"
-#include "magic/magic.h"
-#include "validate/validate.h"
-
 #include "headers.h"
 
 #define TEMP_DIRECTORY_NAME "/.koopa_tmp"
