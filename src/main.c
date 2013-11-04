@@ -18,6 +18,11 @@ extern bool win; extern char* dumpGrasa;
 
 int main(int argc, char **argv) {
 	clear();
+
+	if (argc == 2 && string_equals(argv[1], "--version")) {
+		printf("v1.1\n");
+		exit(1);
+	}
 	if (argc != 3 && (argc != 4 || (argc == 4 && !string_equals(argv[3], "--text")))) {
 		printf("Uso: ./koopa puntoMontaje script.sh [--text]\n");
 		printf("puntoMontaje: Directorio con filesystem GRASA\n");

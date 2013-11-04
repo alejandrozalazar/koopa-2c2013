@@ -19,7 +19,10 @@ void magic_generateTree(char* path, char* pathToDump) {
 
 void magic_generateMd5Log(char* path, char* pathToDump) {
 	t_list* entries = files_getEntriesOfDirectory(path);
-	list_sort(entries, (void*) strcmp);
+	bool _sortByName(char* str1, char* str2) {
+		return strcmp(str1, str2) < 0;
+	}
+	list_sort(entries, (void*) _sortByName);
 
 	char command[MAX_PATH];
 	sprintf(command, "touch %s", pathToDump);

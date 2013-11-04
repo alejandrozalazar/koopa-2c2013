@@ -42,7 +42,7 @@ void screen_renderItem(t_screen* screen, i_drawable* item) {
 	char** textColors = string_split(item->colors_text, "\n");
 	char** backColors = string_split(item->colors_back, "\n");
 
-	int getColorCode(char code) {
+	int _getColorCode(char code) {
 		char str[2]; str[0] = code; str[1] = '\0';
 		return atoi(str);
 	}
@@ -54,8 +54,8 @@ void screen_renderItem(t_screen* screen, i_drawable* item) {
 
 			int color = _screen_setColor(
 				screen,
-				getColorCode(textColors[i][j]),
-				getColorCode(backColors[i][j])
+				_getColorCode(textColors[i][j]),
+				_getColorCode(backColors[i][j])
 			);
 			wmove(screen->secWin, item->position.y - drawable_height(item) + i, item->position.x + j);
 			waddch(screen->secWin, lines[i][j] | COLOR_PAIR(color));
